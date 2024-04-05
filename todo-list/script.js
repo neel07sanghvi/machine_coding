@@ -1,3 +1,6 @@
+const EDIT_ICON = "✏️";
+const DELETE_ICON = "❌";
+
 document.addEventListener("DOMContentLoaded", () => {
 	const todoForm = document.querySelector(".todo-form");
 	const todoInput = document.querySelector(".todo-input");
@@ -31,9 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		if (target.tagName === "BUTTON") {
 			const todoItem = target.parentNode;
-			if (target.innerText === "Delete") {
+			if (target.innerText === DELETE_ICON) {
 				todoItem.remove();
-			} else if (target.innerText === "Edit") {
+			} else if (target.innerText === EDIT_ICON) {
 				editMode = true;
 				editItem = todoItem;
 
@@ -50,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		const todoDeleteBtn = document.createElement("button");
 
 		todoItem.innerHTML = `<span> ${todoText} </span>`;
-		todoEditBtn.innerText = "Edit";
-		todoDeleteBtn.innerText = "Delete";
+		todoEditBtn.innerText = EDIT_ICON;
+		todoDeleteBtn.innerText = DELETE_ICON;
 
 		todoItem.appendChild(todoEditBtn);
 		todoItem.appendChild(todoDeleteBtn);
