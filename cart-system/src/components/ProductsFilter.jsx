@@ -13,8 +13,6 @@ const ProductsFilter = ({ loading, originalProducts, cbSetProducts }) => {
 
 	const products = useRef();
 
-	const padding = "3px";
-
 	const spanStyle = {
 		fontWeight: 700,
 		fontSize: "18px",
