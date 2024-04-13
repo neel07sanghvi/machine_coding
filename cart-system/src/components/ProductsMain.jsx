@@ -1,38 +1,63 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Product from "./ProductItem";
 import { useThemeCtx } from "../contexts/ContextPlus";
+import { useWindowResize } from "../hooks/HookPlus";
 
-const ProductsMain = () => {
-	const URL =
-		"https://geektrust.s3.ap-southeast-1.amazonaws.com/coding-problems/shopping-cart/catalogue.json";
-
-	const [loading, setloading] = useState(false);
-	const [products, setproducts] = useState();
-
+const ProductsMain = ({
+	loading,
+	products,
+	originalProducts,
+	cbSetProducts,
+}) => {
 	const themeCtx = useThemeCtx();
+	const inputRef = useRef();
 
-	const fetchProducts = async () => {
-		try {
-			const response = await fetch(URL);
-			const data = await response.json();
-			setproducts(data);
-		} catch (error) {
-			console.log("Error fetching data: ", error);
-		} finally {
-			setloading(false);
+	const { isMobile, isTablet } = useWindowResize();
+
+	const handleSearch = (value) => {
+		if (value && originalProducts.current) {
+			const newValue = value.split(" ").map((str) => str.toLowerCase());
+
+			const filteredProducts = [];
+
+			Object.values(originalProducts.current).forEach((product) => {
+				const isAppearedInSearch = newValue.some(
+					(str) =>
+						str.includes(product.name.toLowerCase()) ||
+						str.includes(product.type.toLowerCase()) ||
+						str.includes(product.color.toLowerCase())
+				);
+
+				if (isAppearedInSearch) {
+					filteredProducts.push(product);
+				}
+			});
+
+			cbSetProducts(filteredProducts);
 		}
+
+		inputRef.current.value = null;
 	};
 
 	useEffect(() => {
-		setloading(true);
-		fetchProducts();
+		const handleInputEnter = (e) => {
+			if (e.key === "Enter") {
+				handleSearch(inputRef.current.value);
+			}
+		};
+
+		inputRef.current.addEventListener("keydown", handleInputEnter);
+
+		return () => {
+			inputRef.current.removeEventListener("keydown", handleInputEnter);
+		};
 	}, []);
 
 	return (
 		<div
 			style={{
 				height: "100%",
-				width: "70%",
+				width: "80%",
 				display: "flex",
 				flexDirection: "column",
 				alignItems: "center",
@@ -48,6 +73,7 @@ const ProductsMain = () => {
 				}}
 			>
 				<input
+					ref={inputRef}
 					type="search"
 					name="search"
 					id="product-search"
@@ -68,6 +94,7 @@ const ProductsMain = () => {
 						marginLeft: "5px",
 						cursor: "pointer",
 					}}
+					onClick={() => handleSearch(inputRef.current.value)}
 				>
 					🔍
 				</p>
@@ -78,14 +105,22 @@ const ProductsMain = () => {
 				<div
 					style={{
 						display: "grid",
-						gridTemplateColumns: "1fr 1fr 1fr",
+						gridTemplateColumns: isTablet
+							? "1fr 1fr"
+							: isMobile
+							? "1fr"
+							: "1fr 1fr 1fr",
 						gap: "20px",
 						marginTop: "50px",
 					}}
 				>
-					{products?.map((product) => (
-						<Product product={product} key={product.id} />
-					))}
+					{products && products.length > 0 ? (
+						products?.map((product) => (
+							<Product product={product} key={product.id} />
+						))
+					) : (
+						<div> Opps! No products found!</div>
+					)}
 				</div>
 			)}
 		</div>
