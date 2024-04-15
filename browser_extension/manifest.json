@@ -1,0 +1,23 @@
+{
+    "manifest_version": 2,
+    "version": "1.0",
+    "name": "copy code",
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.stackoverflow.com/*"
+            ],
+            "js": [
+                "main.js"
+            ]
+        },
+        {
+            "matches": [
+                "*://*.youtube.com/watch?*"
+            ],
+            "js": [
+                "youtube.js"
+            ]
+        }
+    ]
+}
