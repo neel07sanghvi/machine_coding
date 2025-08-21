@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debounce & Throttle</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .container {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <input type="text" name="name" id="input__text" autocomplete="off">
+
+    <p>Default Text : <span class="default__text"></span></p>
+
+    <p>Debounce Text : <span class="debounce__text"></span></p>
+
+    <p>Throttle Text : <span class="throttle__text"></span></p>
+  </div>
+
+  <script src="./index.js" defer></script>
+</body>
+
+</html>
