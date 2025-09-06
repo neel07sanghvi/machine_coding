@@ -1,0 +1,42 @@
+[
+  {
+    "id": "1",
+    "name": "src",
+    "isFolder": true,
+    "children": [
+      {
+        "id": "2",
+        "name": "components",
+        "isFolder": true,
+        "children": [
+          {
+            "id": "3",
+            "name": "FileExplorer.jsx",
+            "isFolder": false
+          }
+        ]
+      },
+      {
+        "id": "4",
+        "name": "App.jsx",
+        "isFolder": false
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "name": "public",
+    "isFolder": true,
+    "children": []
+  },
+  {
+    "id": "5",
+    "name": "index.html",
+    "isFolder": false
+  },
+  {
+    "id": "6",
+    "name": "package.json",
+    "isFolder": false
+  }
+]

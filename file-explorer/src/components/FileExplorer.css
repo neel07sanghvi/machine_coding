@@ -1,0 +1,21 @@
+.container {
+  width: 500px;
+  margin-left: 16px;
+  padding: 2px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+}
+
+.folder-icons {
+  margin-left: 16px;
+  height: 20px;
+  width: 50px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px;
+}
